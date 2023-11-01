@@ -1,0 +1,36 @@
+import mysql.connector
+
+# MySQL 서버 연결 설정
+conn = mysql.connector.connect(
+    host="localhost",  # MySQL 서버 주소
+    user="your_username",  # MySQL 사용자 이름
+    password="your_password",  # MySQL 사용자 비밀번호
+    database="madang"  # 데이터베이스 이름
+)
+
+# 커서 생성
+cursor = conn.cursor()
+
+# 데이터 삽입
+insert_query = "INSERT INTO your_table (column1, column2) VALUES (%s, %s)"
+values = ("value1", "value2")
+cursor.execute(insert_query, values)
+conn.commit()
+
+# 데이터 삭제
+delete_query = "DELETE FROM your_table WHERE column1 = %s"
+value_to_delete = "value_to_delete"
+cursor.execute(delete_query, (value_to_delete,))
+conn.commit()
+
+# 데이터 검색
+select_query = "SELECT * FROM your_table WHERE column1 = %s"
+value_to_search = "value_to_search"
+cursor.execute(select_query, (value_to_search,))
+result = cursor.fetchall()
+for row in result:
+    print(row)
+
+# 연결 종료
+cursor.close()
+conn.close()
